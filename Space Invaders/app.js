@@ -163,7 +163,7 @@ function moveTireur3(e){
 document.addEventListener('keydown', moveTireur3)
 
 
-// let IntervalDeplacementAlien = setInterval(game, 200)
+// let IntervalDeplacementAlien = setInterval(game, 500)
 
 function game() {
     deplacementAliens()
@@ -182,42 +182,62 @@ function game() {
         
     // }
 }
+let peuxTirer = true
 
 document.addEventListener('keydown', function lesMissilles(e){
     let intervalLaser
     let posLaser = positionTireur
-
-    function missilles() {
-        tableauJeu[posLaser].classList.remove('laser')
-
-        posLaser -= width
-
-        tableauJeu[posLaser].classList.add('laser')
-
-
-        // for (let i = 0; i < tableauAlien.length; i++) {
-            // if (posLaser == tableauAlien[i]) {
-            if(tableauJeu[posLaser].classList.contains('alien')){
-                clearInterval(intervalLaser)
-                console.log('toucher')
-                tableauJeu[posLaser].classList.remove('alien')
+    
+    console.log('1 : peuxTirer ' + peuxTirer)
+    if(peuxTirer){
+        
+        console.log('je passe dans peux tirer')
+        console.log('2 : peuxTirer ' + peuxTirer)
+        
+        function missilles() {
+            tableauJeu[posLaser].classList.remove('laser')
+    
+            posLaser -= width
+    
+            tableauJeu[posLaser].classList.add('laser')
+    
+            if(posLaser >= 0 && posLaser <=19 ){    // Pour évité les érreurs si les lasers sorte de la grille
                 tableauJeu[posLaser].classList.remove('laser')
-                tableauJeu[posLaser].classList.add('boom')
-
-                console.log(tableauJeu)
-
-                setTimeout(function() {tableauJeu[posLaser].classList.remove('boom')},300)
-
-                const aliensMort = tableauAlien.indexOf(posLaser)
-                alienMort.push(aliensMort)
-                console.log(alienMort)
-
+                console.log('retirer')
+                clearInterval(intervalLaser)
             }
-        // }
+
+
+            // for (let i = 0; i < tableauAlien.length; i++) {
+                // if (posLaser == tableauAlien[i]) {
+                if(tableauJeu[posLaser].classList.contains('alien')){
+                    clearInterval(intervalLaser)
+                    console.log('toucher')
+                    tableauJeu[posLaser].classList.remove('alien')
+                    tableauJeu[posLaser].classList.remove('laser')
+                    tableauJeu[posLaser].classList.add('boom')
+    
+                    // console.log(tableauJeu)
+    
+                    setTimeout(function() {tableauJeu[posLaser].classList.remove('boom')},100)
+    
+                    const aliensMort = tableauAlien.indexOf(posLaser)
+                    alienMort.push(aliensMort)
+                    // console.log(alienMort)
+    
+                }
+            // }
+
+            
+            peuxTirer = false
+        }
     }
 
     if (e.key === ' ') {
         intervalLaser = setInterval(missilles,100)
+        setTimeout( function(){    peuxTirer = true ; console.log('PARÉ À TIRÉÉÉÉÉÉ') ; console.log(' 4 : peuxTirer ' + peuxTirer)},2000)
+        console.log('avant condition')
+        console.log('3 : peuxTirer ' + peuxTirer)
     }
 })
 
