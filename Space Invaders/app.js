@@ -107,11 +107,14 @@ function moveTireur(e){
       if(positionTireur  < maxwidth - 1 ) positionTireur +=1
       break
       case 'ArrowUp':
-        console.log(minwidth)
+        console.log("min width = " + minwidth)
+        console.log("max width = "+ maxwidth)
         console.log(positionTireur )
         if(positionTireur  > maxheight ) positionTireur -=width ; minwidth -= 20; maxwidth -= width
         break
       case 'ArrowDown':
+        console.log("min width = "+ minwidth)
+        console.log("max width = "+maxwidth)
         console.log("down press")
         console.log(positionTireur )
         if(positionTireur  < minheight+1 ) positionTireur +=width ; minwidth += 20; maxwidth += width
