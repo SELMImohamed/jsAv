@@ -119,10 +119,42 @@ function moveTireur(e){
   }
   tableauJeu[positionTireur].classList.add('tireur')
 }
-document.addEventListener('keydown', moveTireur)
+// document.addEventListener('keydown', moveTireur)
 
 
-let IntervalDeplacementAlien = setInterval(game, 200)
+
+
+function moveTireur2(e){
+    tableauJeu[positionTireur].classList.remove('tireur')
+    
+    if (e.key == 'ArrowLeft') {
+      console.log('gauche')
+      if(positionTireur  > minwidth  ) positionTireur -=1
+
+    }
+    
+    else if(e.key == 'ArrowRight') {
+        console.log('droite')
+        if(positionTireur  < maxwidth - 1 ) positionTireur +=1
+    }
+
+    else if(e.key == 'ArrowUp') {
+        console.log('Up')
+        if(positionTireur  > maxheight ) positionTireur -= width ; minwidth -= 20; maxwidth -= width
+        console.log(minwidth)
+    }
+
+    else if(e.key == 'ArrowDown'){
+        console.log('down')
+        if(positionTireur  < minheight+1 ) positionTireur +=width ; minwidth += 20; maxwidth += width
+    }
+    tableauJeu[positionTireur].classList.add('tireur')
+}
+document.addEventListener('keydown', moveTireur2)
+
+
+
+// let IntervalDeplacementAlien = setInterval(game, 200)
 
 function game() {
     deplacementAliens()
