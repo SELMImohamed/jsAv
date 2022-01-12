@@ -19,7 +19,7 @@ const tableauAlien = [   //  Ajouté les index de où ce trouveront les aliens
 
 function afficherAliens( ) {  // Afficher les aliens
   for (let i = 0; i < tableauAlien.length; i++) {
-      if (!alienMort.includes(i)) {
+      if (!alienMort.includes(i)) {     // Si l'alien n'est pas dans le tableau des aliens mort on l'affiche 
         tableauJeu [tableauAlien [i]].classList.add('alien')
       }
   }
@@ -31,6 +31,8 @@ function supprimerAliens( ) {  // Supprimer les aliens
     }
 }
 
+
+
 afficherAliens()
 
 let positionTireur = 250
@@ -38,15 +40,21 @@ let width = 20
 let direction = 1
 let versDroite = true
 
-tableauJeu[positionTireur].classList.add('tireur')
+tableauJeu[positionTireur].classList.add('tireur')  // Afficher le tirreur
+
+
+/* ******************************************************** */
+/*     Fonction permettant de savoir si un alien touche     */
+/*                  le mur gauche ou droit                  */
+/* ******************************************************** */
 
 // const murDroit = [19,39,59,79,99,119,139,159,179,199,219,239,259]
 // const murGauche = [0,20,40,60,80,100,120,140,160,180,200,240]
 
-function changerDirection() {
+function changerDirection() { // Fonction permettant de savoir si un alien touche le mur gauche ou droit
+
     for (let i = 0; i < tableauAlien.length; i++) {
        
-
         if (tableauAlien[i] == 19 || tableauAlien[i] == 39 || tableauAlien[i] == 59 || tableauAlien[i] == 79 || tableauAlien[i] == 99 || tableauAlien[i] == 119 || tableauAlien[i] == 139 || tableauAlien[i] == 159 || tableauAlien[i] == 179 || tableauAlien[i] == 199 || tableauAlien[i] == 219 || tableauAlien[i] == 239 || tableauAlien[i] == 259)  {
             console.log('mur Droit')
             return true
@@ -61,35 +69,45 @@ function changerDirection() {
 }
 console.log(changerDirection())
 
+/* ****************************************************** */
+/*    Fonction permettant de faire déplacer les aliens    */
+/* ****************************************************** */
+
 function deplacementAliens() {
 
     changerDirection()
     supprimerAliens()
 
-    if (changerDirection() && versDroite) {
+    if (changerDirection() && versDroite) {              // Si un alien touche le mur droit on fait déscendre les aliens et on change le sens de direction
         for (let i = 0; i < tableauAlien.length; i++) {
-            tableauAlien[i] += width 
-            direction = -1
+            tableauAlien[i] += width    // Faire déscendre
+            direction = -1              // Changer sens de direction
             versDroite = false
         }
-    }else if(changerDirection() == false && !versDroite){
+    }
+    
+    else if(changerDirection() == false && !versDroite){    // Si un alien touche le mur gauche on fait déscendre les aliens et on change le sens de direction
         for (let i = 0; i < tableauAlien.length; i++) {
-            tableauAlien[i] += width 
-            direction = 1
+            tableauAlien[i] += width    // Faire déscendre
+            direction = 1               // Changer sens de direction
             versDroite = true
         }
     }else
 
-    for (let i = 0; i < tableauAlien.length; i++) {
+    for (let i = 0; i < tableauAlien.length; i++) { // Faire avancer les aliens dans la dernière direction donnée
         tableauAlien[i] += direction 
     }
     // console.log(tableauAlien)
     afficherAliens()
 }
 
-// setInterval(deplacementAliens, 200);
 
-function moveTireur3(e){
+
+/* ************************************ */
+/*    Fonction pour bouger le tireur    */
+/* ************************************ */
+
+document.addEventListener('keydown',function moveTireur(e){
     tableauJeu[positionTireur].classList.remove('tireur')
 
     console.log(positionTireur)
@@ -159,29 +177,53 @@ function moveTireur3(e){
         console.log(positionTireur)
     }
     tableauJeu[positionTireur].classList.add('tireur')
-}
-document.addEventListener('keydown', moveTireur3)
+});
 
 
-// let IntervalDeplacementAlien = setInterval(game, 500)
+
+let IntervalDeplacementAlien = setInterval(game, 500) // Permet dans lancé le déplacement des aliens donc de commencer la partie
+
+/* ********************************************** */
+/*     Fonction permettant de lancé la partie     */
+/*                  et de l'arrêter               */
+/* ********************************************** */
 
 function game() {
     deplacementAliens()
     // for (let i = 0; i < tableauAlien.length; i++) {
 
         // if(tableauAlien[i] == positionTireur){
-        if(tableauJeu[positionTireur].classList.contains('alien', 'tireur')){
+        if(tableauJeu[positionTireur].classList.contains('alien', 'tireur')){   // Si sur la position du tireur la case contient les classes 'alien' et 'tireur' on arrête le jeu
             console.log('sur tireur')
             clearInterval(IntervalDeplacementAlien)
             alert('vous avez perdu')
         }
+        
+         if(alienMort.length === tableauAlien.length){  //  Si la taille du tableau alienMort est égale à la taille du tableau tableauAlien on arrête le jeu
+            console.log('fini')
+            clearInterval(IntervalDeplacementAlien)
+            alert('YOU WIN')
+        }
         // }
-        else
-        console.log('pas sur tireur')
+        else{
+            for (let i = 0; i < tableauAlien.length; i++) {
+                if(tableauAlien[i] > tableauJeu.length-2){  //  Si un alien dépasse la taille du tableau on arrête le jeu 
+                    clearInterval(IntervalDeplacementAlien)
+                    alert('vous avez perdu hors zone')
+                    
+                }  
+            }
+        }
 
         
     // }
 }
+
+
+/* ******************************************** */
+/*    Fonction permettant de tiré des lasers    */
+/* ******************************************** */
+
 let peuxTirer = true
 
 document.addEventListener('keydown', function lesMissilles(e){
@@ -189,56 +231,59 @@ document.addEventListener('keydown', function lesMissilles(e){
     let posLaser = positionTireur
     
     console.log('1 : peuxTirer ' + peuxTirer)
+
     if(peuxTirer){
         
-        console.log('je passe dans peux tirer')
         console.log('2 : peuxTirer ' + peuxTirer)
-        
+
         function missilles() {
+
+            peuxTirer = false
+            
             tableauJeu[posLaser].classList.remove('laser')
     
-            posLaser -= width
+            posLaser -= width   // Faire monter le Laser
     
             tableauJeu[posLaser].classList.add('laser')
-    
+        
             if(posLaser >= 0 && posLaser <=19 ){    // Pour évité les érreurs si les lasers sorte de la grille
                 tableauJeu[posLaser].classList.remove('laser')
                 console.log('retirer')
                 clearInterval(intervalLaser)
             }
-
+            
 
             // for (let i = 0; i < tableauAlien.length; i++) {
                 // if (posLaser == tableauAlien[i]) {
-                if(tableauJeu[posLaser].classList.contains('alien')){
+
+                if(tableauJeu[posLaser].classList.contains('alien')){   // Si la case où ce trouve le laser contient la classe 'alien'
                     clearInterval(intervalLaser)
                     console.log('toucher')
-                    tableauJeu[posLaser].classList.remove('alien')
+                    console.log(' toucher et peuxTirer ' + peuxTirer)
+                    tableauJeu[posLaser].classList.remove('alien')  //  On supprime les classes 'alien' et 'laser' => ils disparaissent
                     tableauJeu[posLaser].classList.remove('laser')
-                    tableauJeu[posLaser].classList.add('boom')
+                    tableauJeu[posLaser].classList.add('boom')      //  Et on fait apparaître l'explosion
     
                     // console.log(tableauJeu)
     
-                    setTimeout(function() {tableauJeu[posLaser].classList.remove('boom')},100)
+                    setTimeout(function() {tableauJeu[posLaser].classList.remove('boom')},100) //   Après 100 miliseconde on enlève la classe 'boom' donc on supprime l'explotion
     
-                    const aliensMort = tableauAlien.indexOf(posLaser)
-                    alienMort.push(aliensMort)
+                    const aliensToucher = tableauAlien.indexOf(posLaser)    //  On cherche dans le tableau tableauAlien l'index de l'alien qui a été touché par le laser
+                    alienMort.push(aliensToucher)   //  Et on l'ajoute dans le tableau alienMort
                     // console.log(alienMort)
     
                 }
             // }
+        }
 
+        // Si appuie Bar Espace
+        if (e.key === ' ') { 
+            intervalLaser = setInterval(missilles,50)
+            setTimeout( function(){    peuxTirer = true ; console.log('PARÉ À TIRÉÉÉÉÉÉ') ; console.log(' 3 : peuxTirer ' + peuxTirer)},1000)
+            //  Après 1 seconde mettre peuxTirer = true pour pouvroit retirer
             
-            peuxTirer = false
+            console.log('avant condition')
+            console.log('2 : peuxTirer ' + peuxTirer)
         }
     }
-
-    if (e.key === ' ') {
-        intervalLaser = setInterval(missilles,100)
-        setTimeout( function(){    peuxTirer = true ; console.log('PARÉ À TIRÉÉÉÉÉÉ') ; console.log(' 4 : peuxTirer ' + peuxTirer)},2000)
-        console.log('avant condition')
-        console.log('3 : peuxTirer ' + peuxTirer)
-    }
 })
-
-
