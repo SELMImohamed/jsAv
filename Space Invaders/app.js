@@ -86,78 +86,81 @@ function deplacementAliens() {
 
 // setInterval(deplacementAliens, 200);
 
-let minwidth = 240
-let maxwidth = 260
-const maxheight = 219
-const minheight = 239
-
-tableauJeu[positionTireur].classList.add('tireur')
-
-function moveTireur(e){
-  tableauJeu[positionTireur].classList.remove('tireur')
-  switch (e.key) {
-    case 'ArrowLeft':
-      console.log("gauche press")
-      console.log(positionTireur )
-      if(positionTireur  > minwidth  ) positionTireur -=1
-      break
-    case 'ArrowRight':
-      console.log("droite press")
-      console.log(positionTireur )
-      if(positionTireur  < maxwidth - 1 ) positionTireur +=1
-      break
-      case 'ArrowUp':
-        console.log("min width = " + minwidth)
-        console.log("max width = "+ maxwidth)
-        console.log(positionTireur )
-        if(positionTireur  > maxheight ) positionTireur -=width ; minwidth -= 20; maxwidth -= width
-        break
-      case 'ArrowDown':
-        console.log("min width = "+ minwidth)
-        console.log("max width = "+maxwidth)
-        console.log("down press")
-        console.log(positionTireur )
-        if(positionTireur  < minheight+1 ) positionTireur +=width ; minwidth += 20; maxwidth += width
-        break
-  }
-  tableauJeu[positionTireur].classList.add('tireur')
-}
-// document.addEventListener('keydown', moveTireur)
-
-
-
-
-function moveTireur2(e){
+function moveTireur3(e){
     tableauJeu[positionTireur].classList.remove('tireur')
-    
-    if (e.key == 'ArrowLeft') {
-      console.log('gauche')
-      if(positionTireur  > minwidth  ) positionTireur -=1
 
-    }
-    
-    else if(e.key == 'ArrowRight') {
-        console.log('droite')
-        if(positionTireur  < maxwidth - 1 ) positionTireur +=1
+    console.log(positionTireur)
+    if(positionTireur  >= 240  && positionTireur <= 259){
+
+        if (e.key == 'ArrowLeft' && positionTireur > 240) {
+            console.log('gauche')
+            positionTireur -=1
+        } 
+
+        else if(e.key == 'ArrowRight' && positionTireur < 259) {
+            console.log('droite')
+            positionTireur +=1
+        }
+
+        else if(e.key == 'ArrowUp') {
+            console.log('Up')
+            positionTireur -= width ;
+
+        }
+        console.log(positionTireur)
     }
 
-    else if(e.key == 'ArrowUp') {
-        console.log('Up')
-        if(positionTireur  > maxheight ) positionTireur -= width ; minwidth -= 20; maxwidth -= width
-        console.log(minwidth)
+    else if(positionTireur  >= 220  && positionTireur <= 239){
+
+        if (e.key == 'ArrowLeft' && positionTireur > 220) {
+            console.log('gauche')
+            positionTireur -=1
+        } 
+
+        else if(e.key == 'ArrowRight' && positionTireur < 239) {
+            console.log('droite')
+            positionTireur +=1
+        }
+
+        else if(e.key == 'ArrowUp') {
+            console.log('Up')
+            positionTireur -= width ;
+
+        }
+
+        else if(e.key == 'ArrowDown'){
+            console.log('down')
+            positionTireur +=width ; 
+        }
+
+        console.log(positionTireur)
     }
 
-    else if(e.key == 'ArrowDown'){
-        console.log('down')
-        if(positionTireur  < minheight+1 ) positionTireur +=width ; minwidth += 20; maxwidth += width
+    else if(positionTireur  >= 200  && positionTireur <= 219){
+
+        if (e.key == 'ArrowLeft' && positionTireur > 200) {
+            console.log('gauche')
+            positionTireur -=1
+        } 
+
+        else if(e.key == 'ArrowRight' && positionTireur < 219) {
+            console.log('droite')
+            positionTireur +=1
+        }
+
+        else if(e.key == 'ArrowDown'){
+            console.log('down')
+            positionTireur +=width ; 
+        }
+
+        console.log(positionTireur)
     }
     tableauJeu[positionTireur].classList.add('tireur')
 }
-document.addEventListener('keydown', moveTireur2)
+document.addEventListener('keydown', moveTireur3)
 
 
-
-// let IntervalDeplacementAlien = setInterval(game, 200)
+let IntervalDeplacementAlien = setInterval(game, 200)
 
 function game() {
     deplacementAliens()
