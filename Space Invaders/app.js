@@ -1,5 +1,6 @@
 
 const grilleJeu = document.querySelector('.grille')
+let alienMort = []
 
 //  Création d'une grille sur toute la zone de combat
 for (let i = 0; i < 260; i++) { 
@@ -11,9 +12,9 @@ const tableauJeu = Array.from(document.querySelectorAll('.grille div')) //  Mett
 console.log(tableauJeu)
 
 const tableauAlien = [   //  Ajouté les index de où ce trouveront les aliens
-  0,1,2,3,4,5,6,7,8,9,
-  20,21,22,23,24,25,26,27,28,29,
-  40,41,42,43,44,45,46,47,48,49,
+  0,1,2,3,4,5,6,7,8,9,10,11,
+  20,21,22,23,24,25,26,27,28,29,30,31,
+  40,41,42,43,44,45,46,47,48,49,50,51
 ]
 
 function afficherAliens( ) {  // Afficher les aliens
@@ -160,7 +161,7 @@ function moveTireur3(e){
 document.addEventListener('keydown', moveTireur3)
 
 
-let IntervalDeplacementAlien = setInterval(game, 200)
+// let IntervalDeplacementAlien = setInterval(game, 200)
 
 function game() {
     deplacementAliens()
@@ -176,3 +177,43 @@ function game() {
         
     }
 }
+
+document.addEventListener('keydown', function lesMissilles(e){
+    let intervalLaser
+    let posLaser = positionTireur
+
+    function missilles() {
+        tableauJeu[posLaser].classList.remove('laser')
+
+        posLaser -= width
+
+        tableauJeu[posLaser].classList.add('laser')
+
+
+        for (let i = 0; i < tableauAlien.length; i++) {
+            if (posLaser == tableauAlien[i]) {
+                
+                clearInterval(intervalLaser)
+                console.log('toucher')
+                tableauJeu[posLaser].classList.remove('alien')
+                tableauJeu[posLaser].classList.remove('laser')
+                tableauJeu[posLaser].classList.add('boom')
+
+                console.log(tableauJeu)
+
+                setTimeout(function() {tableauJeu[posLaser].classList.remove('boom')},300)
+
+                const aliensMort = tableauAlien.indexOf(posLaser)
+                alienMort.push(aliensMort)
+                console.log(alienMort)
+
+            }
+        }
+    }
+
+    if (e.key === ' ') {
+        intervalLaser = setInterval(missilles,100)
+    }
+})
+
+
