@@ -19,7 +19,9 @@ const tableauAlien = [   //  Ajouté les index de où ce trouveront les aliens
 
 function afficherAliens( ) {  // Afficher les aliens
   for (let i = 0; i < tableauAlien.length; i++) {
-     tableauJeu [tableauAlien [i]].classList.add('alien')
+      if (!alienMort.includes(i)) {
+        tableauJeu [tableauAlien [i]].classList.add('alien')
+      }
   }
 }
 
@@ -165,17 +167,20 @@ document.addEventListener('keydown', moveTireur3)
 
 function game() {
     deplacementAliens()
-    for (let i = 0; i < tableauAlien.length; i++) {
+    // for (let i = 0; i < tableauAlien.length; i++) {
 
-        if(tableauAlien[i] == positionTireur){
+        // if(tableauAlien[i] == positionTireur){
+        if(tableauJeu[positionTireur].classList.contains('alien', 'tireur')){
             console.log('sur tireur')
             clearInterval(IntervalDeplacementAlien)
             alert('vous avez perdu')
-        }else
+        }
+        // }
+        else
         console.log('pas sur tireur')
 
         
-    }
+    // }
 }
 
 document.addEventListener('keydown', function lesMissilles(e){
@@ -190,9 +195,9 @@ document.addEventListener('keydown', function lesMissilles(e){
         tableauJeu[posLaser].classList.add('laser')
 
 
-        for (let i = 0; i < tableauAlien.length; i++) {
-            if (posLaser == tableauAlien[i]) {
-                
+        // for (let i = 0; i < tableauAlien.length; i++) {
+            // if (posLaser == tableauAlien[i]) {
+            if(tableauJeu[posLaser].classList.contains('alien')){
                 clearInterval(intervalLaser)
                 console.log('toucher')
                 tableauJeu[posLaser].classList.remove('alien')
@@ -208,7 +213,7 @@ document.addEventListener('keydown', function lesMissilles(e){
                 console.log(alienMort)
 
             }
-        }
+        // }
     }
 
     if (e.key === ' ') {
