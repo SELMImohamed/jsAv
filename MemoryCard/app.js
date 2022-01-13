@@ -1,7 +1,12 @@
 const cartes = document.querySelectorAll('.carte')
+const timer = document.getElementById('timer')
 
 let carteDejaRetourné = false;
 let premièreCarte, secondeCarte
+
+let min = 0;
+let sec = 0;
+let stoptime = true;
 
 let tab = []
 
@@ -89,16 +94,30 @@ function ajouterButton() {
 /*    Fonction pour les conditions de victoires    */
 /* *********************************************** */
 
+    
 
 function win() {
 
     if(tab.length == 12){
         ajouterButton()
-        
-        document.querySelector('.button').addEventListener('click', function() {
+        // timer.style.position ='relative'
+        // timer.style.top ='200px'
+        // timer.style.zIndex='-1'
+
+        document.querySelector('button').addEventListener('click', function() {
             document.location.reload();
         })
         stopTimer()
+
+        timer.style.position ='relative'
+        timer.style.top ='410px'
+        timer.style.display ='flex'
+        timer.style.justifyContent ='center'
+        timer.style.textAlign ='center'
+        timer.style.color ='white'
+        timer.style.backgroundColor ='black'
+        timer.style.zIndex='1'
+        timer.innerHTML = 'Vous avez gagné votre temps : </br>'+ min + ' min ' + sec + ' sec'
         // console.log('oui')
 
     }
@@ -113,11 +132,8 @@ function win() {
 /* ******************************* */
 
 
-const timer = document.getElementById('timer')
-let hr = 0;
-let min = 0;
-let sec = 0;
-let stoptime = true;
+
+
 
 function startTimer() {
   if (stoptime == true) {
@@ -135,17 +151,11 @@ function timerCycle() {
     if (stoptime == false) {
     sec = parseInt(sec);
     min = parseInt(min);
-    hr = parseInt(hr);
 
     sec = sec + 1;
 
     if (sec == 60) {
       min = min + 1;
-      sec = 0;
-    }
-    if (min == 60) {
-      hr = hr + 1;
-      min = 0;
       sec = 0;
     }
 
@@ -155,12 +165,9 @@ function timerCycle() {
     if (min < 10 || min == 0) {
       min = '0' + min;
     }
-    if (hr < 10 || hr == 0) {
-      hr = '0' + hr;
-    }
 
     // console.log( hr + ' h '+ min + ' min '+sec+' sec ')
-    timer.innerHTML = hr + ':' + min + ':' + sec;
+    timer.innerHTML = min + ':' + sec;
 
     setTimeout(()=>{timerCycle()}, 1000);
   }
@@ -174,3 +181,76 @@ timer.style.fontSize='60px'
 
 // Star le timer quand la page est chargée
 window.onload = startTimer()
+
+
+
+//  Création d'objet pour les images
+
+const dataImages = [
+    { imgSrc: 'ressources/apple.svg', name: 'apple' },
+    { imgSrc: 'ressources/banana.svg', name: 'banana' },
+    { imgSrc: 'ressources/brocoli.svg', name: 'brocoli' },
+    { imgSrc: 'ressources/cherry.svg', name: 'chery' },
+    { imgSrc: 'ressources/pepper.svg', name: 'papper' },
+    { imgSrc: 'ressources/straw.svg', name: 'straw' },
+    { imgSrc: 'ressources/apple.svg', name: 'apple' },
+    { imgSrc: 'ressources/banana.svg', name: 'banana' },
+    { imgSrc: 'ressources/brocoli.svg', name: 'brocoli' },
+    { imgSrc: 'ressources/cherry.svg', name: 'chery' },
+    { imgSrc: 'ressources/pepper.svg', name: 'papper' },
+    { imgSrc: 'ressources/straw.svg', name: 'straw' }
+];
+
+
+/* ************************************************* */
+/*    Fonction pour mélanger les index du tableau    */
+/* ************************************************* */
+
+
+function shuffle(array) {
+    let currentIndex = array.length,  randomIndex;
+  
+    // Temps qu'il y a des éléments à mélanger
+    while (currentIndex != 0) {
+  
+      // Prendre l'élément restant
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+  
+      // Et le remplacer par l'élément actuel.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+  
+    return array;
+}
+  
+shuffle(dataImages);
+console.log(dataImages);
+
+
+/* ******************************** */
+/*    Afficher toutes les cartes    */
+/* ******************************** */
+
+
+for (let i = 0; i < dataImages.length; i++) {
+
+    document.querySelector('.grille').innerHTML += 
+    `
+    <div class="carte"  data-attr="${dataImages[i].name}">
+        <div class="double-face">
+            <div class="face">
+                <img src="${dataImages[i].imgSrc}">
+            </div>
+            <div class="arriere">
+                ❓
+            </div>
+        </div>
+    </div>
+    `;
+}
+
+
+
+
