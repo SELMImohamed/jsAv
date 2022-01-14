@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
 *, ::before, ::after {
   box-sizing: border-box;
   margin: 0;
@@ -5,8 +7,11 @@
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
-  background: linear-gradient(to right, #b993d6, #8ca6db); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  font-family: 'Press Start 2P', Arial, Helvetica, sans-serif;
+  /* background: linear-gradient(to right, #b993d6, #8ca6db); W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: url(ressources/minecraftBackground.png);
+  background-repeat: no-repeat;
+  background-size:  100% 1080px;
 }
 
 .grille {
@@ -41,7 +46,7 @@ body {
 }
 
 .face {
-  background: #333;
+  background: white;
   transform: rotateY(180deg);
   display: flex;
   justify-content: center;
@@ -51,7 +56,11 @@ body {
   width: 120px;
 }
 .arriere {
-  background: white;
+  background: url(ressources/Chest.png);
+  background-color: white;
+  background-repeat: no-repeat;
+  background-size:200px 200px ;
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -63,6 +72,10 @@ body {
 
 .button{
   margin-top: 20px;
+}
+
+#timer{
+  margin: 5px;
 }
 
 .start-btn{
