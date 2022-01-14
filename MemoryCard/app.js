@@ -54,11 +54,13 @@ function carteReturn(card){
 }
 
 function checkCard(premièreCarte , secondeCarte){
+
     //  Si le nom de la première carte est égale au nom de la deuxièmme 
     if (premièreCarte.getAttribute("data-attr") === secondeCarte.getAttribute("data-attr")){
         tab.push(premièreCarte.getAttribute("data-attr"))
         tab.push(secondeCarte.getAttribute("data-attr"))
     }
+
     else {
         setTimeout(()=>{
             premièreCarte.childNodes[1].classList.remove('active')
@@ -68,6 +70,7 @@ function checkCard(premièreCarte , secondeCarte){
 
         },1000)
     }
+
     console.log('1  ' + premièreCarte.getAttribute("data-attr"))
     console.log('2  ' + secondeCarte.getAttribute("data-attr"))
     console.log(tab)
@@ -79,14 +82,10 @@ function supprimerButton() {
     document.querySelector('.button').style.display='none'  //  On fait disparaître le bouton
 }
 
+
 function ajouterButton() { 
     document.querySelector('.button').style.display='flex'  //  On fait apparaître le boutton
     document.querySelector('.button').style.justifyContent ='center'    //  Et on le centre
-    
-    document.querySelector('button').style.fontSize = '30px'
-    document.querySelector('button').style.margin ='20px'
-    document.querySelector('button').style.padding ='30px 20px'
-    document.querySelector('button').style.borderRadius = '10px'
 }
 
 
@@ -104,13 +103,16 @@ function win() {
         // timer.style.top ='200px'
         // timer.style.zIndex='-1'
 
-        document.querySelector('button').addEventListener('click', function() {
+        document.querySelector('.start-btn').addEventListener('click', function() {
             document.location.reload();
         })
+
         stopTimer()
 
+        document.querySelector('.grille').style.margin='0px auto 0px'
+
         timer.style.position ='relative'
-        timer.style.top ='410px'
+        timer.style.top ='370px'
         timer.style.display ='flex'
         timer.style.justifyContent ='center'
         timer.style.textAlign ='center'
@@ -174,13 +176,13 @@ function timerCycle() {
 }
 
 function resetTimer() {
-    timer.innerHTML = '00:00:00';
+    timer.innerHTML = '00:00';
 }
 
 timer.style.fontSize='60px'
 
 // Star le timer quand la page est chargée
-window.onload = startTimer()
+window.ready = startTimer()
 
 
 
