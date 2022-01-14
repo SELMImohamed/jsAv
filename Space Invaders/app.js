@@ -181,7 +181,7 @@ document.addEventListener('keydown',function moveTireur(e){
 
 
 
-let IntervalDeplacementAlien = setInterval(game, 500) // Permet dans lancé le déplacement des aliens donc de commencer la partie
+let IntervalDeplacementAlien = setInterval(game, 100) // Permet dans lancé le déplacement des aliens donc de commencer la partie
 
 /* ********************************************** */
 /*     Fonction permettant de lancé la partie     */
@@ -196,22 +196,31 @@ function game() {
         if(tableauJeu[positionTireur].classList.contains('alien', 'tireur')){   // Si sur la position du tireur la case contient les classes 'alien' et 'tireur' on arrête le jeu
             console.log('sur tireur')
             clearInterval(IntervalDeplacementAlien)
-            alert('vous avez perdu')
+            if (confirm('YOU LOST | voulez vous rejouer ?')) {
+                // Save it!
+                document.location.reload();
+              } 
+            
         }
         
          if(alienMort.length === tableauAlien.length){  //  Si la taille du tableau alienMort est égale à la taille du tableau tableauAlien on arrête le jeu
             console.log('fini')
             clearInterval(IntervalDeplacementAlien)
-            alert('YOU WIN')
+            if (confirm('YOU WIN | voulez vous rejouer ?')) {
+                // Save it!
+                document.location.reload();
+              } 
         }
         // }
         else{
             for (let i = 0; i < tableauAlien.length; i++) {
                 if(tableauAlien[i] > tableauJeu.length-2){  //  Si un alien dépasse la taille du tableau on arrête le jeu 
                     clearInterval(IntervalDeplacementAlien)
-                    alert('vous avez perdu hors zone')
-                    
+                    if (confirm('YOU LOST out of range | voulez vous rejouer ?')) {
+                    // Save it!
+                    document.location.reload();}
                 }  
+
             }
         }
 
