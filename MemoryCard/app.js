@@ -1,14 +1,16 @@
 const cartes = document.querySelectorAll('.carte')
 const timer = document.getElementById('timer')
 
-let carteDejaRetourné = false;
+let carteDejaRetourné = false
 let premièreCarte, secondeCarte
 
-let min = 0;
-let sec = 0;
+let min = 0
+let sec = 0
 let stoptime = true;
 
+
 let flipCardSound = new Audio('ressources/sound/dingSound.m4a')
+let wrongSound = new Audio('ressources/sound/wrongSound.m4a')
 
 let tab = []
 
@@ -71,10 +73,12 @@ function checkCard(premièreCarte , secondeCarte){
         setTimeout(()=>{
             premièreCarte.childNodes[1].classList.remove('active')
             secondeCarte.childNodes[1].classList.remove('active')
+            wrongSound.volume = 0.1
+            wrongSound.play()
             // console.log(premièreCarte.childNodes);
             // console.log(secondeCarte.childNodes);
 
-        },1000)
+        },500)
     }
 
     console.log('1  ' + premièreCarte.getAttribute("data-attr"))
@@ -125,7 +129,9 @@ function win() {
         timer.style.color ='white'
         timer.style.backgroundColor ='black'
         timer.style.zIndex='1'
-        timer.innerHTML = 'Vous avez gagné votre temps : </br>'+ min + ' min ' + sec + ' sec'
+        timer.style.fontSize= '50px'
+        timer.style.padding='10px'
+        timer.innerHTML = 'Vous avez terminé en</br>'+ min + ' min ' + sec + ' sec'
         // console.log('oui')
 
     }
@@ -195,18 +201,18 @@ window.ready = startTimer()
 //  Création d'objet pour les images
 
 const dataImages = [
-    { imgSrc: 'ressources/apple.svg', name: 'apple' },
-    { imgSrc: 'ressources/banana.svg', name: 'banana' },
-    { imgSrc: 'ressources/brocoli.svg', name: 'brocoli' },
-    { imgSrc: 'ressources/cherry.svg', name: 'chery' },
-    { imgSrc: 'ressources/pepper.svg', name: 'papper' },
-    { imgSrc: 'ressources/straw.svg', name: 'straw' },
-    { imgSrc: 'ressources/apple.svg', name: 'apple' },
-    { imgSrc: 'ressources/banana.svg', name: 'banana' },
-    { imgSrc: 'ressources/brocoli.svg', name: 'brocoli' },
-    { imgSrc: 'ressources/cherry.svg', name: 'chery' },
-    { imgSrc: 'ressources/pepper.svg', name: 'papper' },
-    { imgSrc: 'ressources/straw.svg', name: 'straw' }
+    { imgSrc: 'ressources/coal.png', name: 'coal' },
+    { imgSrc: 'ressources/diamond.png', name: 'diamond' },
+    { imgSrc: 'ressources/gold.png', name: 'gold' },
+    { imgSrc: 'ressources/iron.png', name: 'iron' },
+    { imgSrc: 'ressources/lapisLazuli.png', name: 'lapisLazuli' },
+    { imgSrc: 'ressources/redstone.png', name: 'redstone' },
+    { imgSrc: 'ressources/coal.png', name: 'coal' },
+    { imgSrc: 'ressources/diamond.png', name: 'diamond' },
+    { imgSrc: 'ressources/gold.png', name: 'gold' },
+    { imgSrc: 'ressources/iron.png', name: 'iron' },
+    { imgSrc: 'ressources/lapisLazuli.png', name: 'lapisLazuli' },
+    { imgSrc: 'ressources/redstone.png', name: 'redstone' }
 ];
 
 
@@ -252,13 +258,14 @@ for (let i = 0; i < dataImages.length; i++) {
                 <img src="${dataImages[i].imgSrc}">
             </div>
             <div class="arriere">
-                ❓
+                
             </div>
         </div>
     </div>
     `;
 }
 
+// ❓
 
 
 
