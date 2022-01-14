@@ -16,8 +16,6 @@ body {
   height: 500px;
   margin: 0 auto;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  /* background: url(ressources/background-black.png);
-  animation: background-defile 5s linear infinite; */
 }
 
 @keyframes background-defile {
@@ -51,14 +49,12 @@ h3 {
   background-size: contain;
 }
 .boom {
-  /* background-color: red; */
   background: url(ressources/laserBlue08.png);
   width: 25px;
   height: 25px;
   background-size: cover;
 }
 .laser {
-  /* background-color: orange; */
   background: url(ressources/laserRed04.png);
   background-repeat: no-repeat;
   background-position: center;
