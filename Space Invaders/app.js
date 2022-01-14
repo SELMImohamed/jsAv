@@ -32,13 +32,14 @@ function supprimerAliens( ) {  // Supprimer les aliens
 }
 
 
-
 afficherAliens()
+supprimerButton()
 
 let positionTireur = 250
 let width = 20
 let direction = 1
 let versDroite = true
+let score = 0
 
 tableauJeu[positionTireur].classList.add('tireur')  // Afficher le tirreur
 
@@ -68,6 +69,7 @@ function changerDirection() { // Fonction permettant de savoir si un alien touch
     }
 }
 console.log(changerDirection())
+
 
 /* ****************************************************** */
 /*    Fonction permettant de faire déplacer les aliens    */
@@ -108,85 +110,95 @@ function deplacementAliens() {
 /* ************************************ */
 
 document.addEventListener('keydown',function moveTireur(e){
-    tableauJeu[positionTireur].classList.remove('tireur')
 
-    console.log(positionTireur)
-    if(positionTireur  >= 240  && positionTireur <= 259){
+    if(document.querySelector('.button').style.display == 'none'){  // Si le bonton n'est pas affiché on peux bouger 
 
-        if (e.key == 'ArrowLeft' && positionTireur > 240) {
-            console.log('gauche')
-            positionTireur -=1
-        } 
-
-        else if(e.key == 'ArrowRight' && positionTireur < 259) {
-            console.log('droite')
-            positionTireur +=1
-        }
-
-        else if(e.key == 'ArrowUp') {
-            console.log('Up')
-            positionTireur -= width ;
-
-        }
-        console.log(positionTireur)
-    }
-
-    else if(positionTireur  >= 220  && positionTireur <= 239){
-
-        if (e.key == 'ArrowLeft' && positionTireur > 220) {
-            console.log('gauche')
-            positionTireur -=1
-        } 
-
-        else if(e.key == 'ArrowRight' && positionTireur < 239) {
-            console.log('droite')
-            positionTireur +=1
-        }
-
-        else if(e.key == 'ArrowUp') {
-            console.log('Up')
-            positionTireur -= width ;
-
-        }
-
-        else if(e.key == 'ArrowDown'){
-            console.log('down')
-            positionTireur +=width ; 
-        }
+        tableauJeu[positionTireur].classList.remove('tireur')
 
         console.log(positionTireur)
-    }
+        if(positionTireur  >= 240  && positionTireur <= 259){
 
-    else if(positionTireur  >= 200  && positionTireur <= 219){
+            if (e.key == 'ArrowLeft' && positionTireur > 240) {
+                console.log('gauche')
+                positionTireur -=1
+            } 
 
-        if (e.key == 'ArrowLeft' && positionTireur > 200) {
-            console.log('gauche')
-            positionTireur -=1
-        } 
+            else if(e.key == 'ArrowRight' && positionTireur < 259) {
+                console.log('droite')
+                positionTireur +=1
+            }
 
-        else if(e.key == 'ArrowRight' && positionTireur < 219) {
-            console.log('droite')
-            positionTireur +=1
+            else if(e.key == 'ArrowUp') {
+                console.log('Up')
+                positionTireur -= width ;
+
+            }
+            console.log(positionTireur)
         }
 
-        else if(e.key == 'ArrowDown'){
-            console.log('down')
-            positionTireur +=width ; 
+        else if(positionTireur  >= 220  && positionTireur <= 239){
+
+            if (e.key == 'ArrowLeft' && positionTireur > 220) {
+                console.log('gauche')
+                positionTireur -=1
+            } 
+
+            else if(e.key == 'ArrowRight' && positionTireur < 239) {
+                console.log('droite')
+                positionTireur +=1
+            }
+
+            else if(e.key == 'ArrowUp') {
+                console.log('Up')
+                positionTireur -= width ;
+
+            }
+
+            else if(e.key == 'ArrowDown'){
+                console.log('down')
+                positionTireur +=width ; 
+            }
+
+            console.log(positionTireur)
         }
 
-        console.log(positionTireur)
+        else if(positionTireur  >= 200  && positionTireur <= 219){
+
+            if (e.key == 'ArrowLeft' && positionTireur > 200) {
+                console.log('gauche')
+                positionTireur -=1
+            } 
+
+            else if(e.key == 'ArrowRight' && positionTireur < 219) {
+                console.log('droite')
+                positionTireur +=1
+            }
+
+            else if(e.key == 'ArrowDown'){
+                console.log('down')
+                positionTireur +=width ; 
+            }
+
+            console.log(positionTireur)
+        }
+        tableauJeu[positionTireur].classList.add('tireur')
     }
-    tableauJeu[positionTireur].classList.add('tireur')
 });
 
 
 
-let IntervalDeplacementAlien = setInterval(game, 100) // Permet dans lancé le déplacement des aliens donc de commencer la partie
 
 /* ********************************************** */
 /*     Fonction permettant de lancé la partie     */
 /*                  et de l'arrêter               */
 /* ********************************************** */
+
+
+function start() {
+    IntervalDeplacementAlien = setInterval(game, 500) // Permet dans lancé le déplacement des aliens donc de commencer la partie
+}
+
+start()
 
 function game() {
     deplacementAliens()
@@ -194,39 +206,77 @@ function game() {
 
         // if(tableauAlien[i] == positionTireur){
         if(tableauJeu[positionTireur].classList.contains('alien', 'tireur')){   // Si sur la position du tireur la case contient les classes 'alien' et 'tireur' on arrête le jeu
+            
             console.log('sur tireur')
             clearInterval(IntervalDeplacementAlien)
-            if (confirm('YOU LOST | voulez vous rejouer ?')) {
-                // Save it!
-                document.location.reload();
-              } 
-            
+
+            document.querySelector('h3').style.color = 'white'
+            document.querySelector('h3').style.position = 'relative'
+            document.querySelector('h3').style.top = '325px'             // Affichier la defaite et le score au centre de l'écrant
+            document.querySelector('h3').style.fontSize = '30px'
+            document.querySelector('h3').innerHTML = 'Vous avez perdu </br></br> Votre Score : ' + score
+
+            ajouterButton()
+            // alert('vous avez perdu')
+            tableauJeu[positionTireur].classList.remove('tireur')
+            supprimerAliens()
         }
         
          if(alienMort.length === tableauAlien.length){  //  Si la taille du tableau alienMort est égale à la taille du tableau tableauAlien on arrête le jeu
             console.log('fini')
             clearInterval(IntervalDeplacementAlien)
-            if (confirm('YOU WIN | voulez vous rejouer ?')) {
-                // Save it!
-                document.location.reload();
-              } 
+
+            document.querySelector('h3').style.color = 'white'
+            document.querySelector('h3').style.position = 'relative'
+            document.querySelector('h3').style.top = '325px'            //  Afficher la victoire et le score au centre de l'écrant 
+            document.querySelector('h3').style.fontSize = '30px'
+            document.querySelector('h3').innerHTML = 'Vous avez gagné ! </br></br> Votre Score : ' + score
+
+            ajouterButton()
+            // alert('YOU WIN')
+            tableauJeu[positionTireur].classList.remove('tireur')
+            supprimerAliens()
         }
         // }
-        else{
+        else {
             for (let i = 0; i < tableauAlien.length; i++) {
                 if(tableauAlien[i] > tableauJeu.length-2){  //  Si un alien dépasse la taille du tableau on arrête le jeu 
                     clearInterval(IntervalDeplacementAlien)
-                    if (confirm('YOU LOST out of range | voulez vous rejouer ?')) {
-                    // Save it!
-                    document.location.reload();}
-                }  
+                    
+                    document.querySelector('h3').style.color = 'white'
+                    document.querySelector('h3').style.position = 'relative'
+                    document.querySelector('h3').style.top = '325px'
+                    document.querySelector('h3').style.fontSize = '30px'
+                    document.querySelector('h3').innerHTML = 'Vous avez perdu </br> Hors Zone </br></br> Votre Score : ' + score
 
+                    ajouterButton()
+                    // alert('vous avez perdu hors zone')                    
+                    tableauJeu[positionTireur].classList.remove('tireur')
+                    supprimerAliens()
+                }  
             }
         }
 
         
     // }
 }
+
+// Si on clique sur le bouton on recommence une partie
+document.querySelector('.button').addEventListener('click', function() {
+    document.location.reload();
+})
+
+function supprimerButton() { 
+    document.querySelector('.button').style.display='none'  //  On fait disparaître le bouton
+}
+
+function ajouterButton() { 
+    document.querySelector('.button').style.display='flex'  //  On fait apparaître le boutton
+    document.querySelector('.button').style.justifyContent ='center'    //  Et on le centre
+}
+
+
+
 
 
 /* ******************************************** */
@@ -280,7 +330,8 @@ document.addEventListener('keydown', function lesMissilles(e){
                     const aliensToucher = tableauAlien.indexOf(posLaser)    //  On cherche dans le tableau tableauAlien l'index de l'alien qui a été touché par le laser
                     alienMort.push(aliensToucher)   //  Et on l'ajoute dans le tableau alienMort
                     // console.log(alienMort)
-    
+                    score ++
+                    document.querySelector('h3').innerHTML = 'Score : ' + score
                 }
             // }
         }
