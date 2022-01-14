@@ -41,7 +41,8 @@ let direction = 1
 let versDroite = true
 let score = 0
 let laserSound = new Audio('ressources/sound/sfx_laser1.m4a')
-var looseSound = new Audio('ressources/sound/sfx_shieldDown.ogg')
+let looseSound = new Audio('ressources/sound/sfx_shieldDown.ogg')
+let winSound = new Audio('ressources/sound/sfx_shieldUp.ogg')
 
 tableauJeu[positionTireur].classList.add('tireur')  // Afficher le tirreur
 
@@ -240,7 +241,7 @@ function game() {
             // alert('YOU WIN')
             tableauJeu[positionTireur].classList.remove('tireur')
             supprimerAliens()
-            looseSound.play()
+            winSound.play()
         }
         // }
         else {
