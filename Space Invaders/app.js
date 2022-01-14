@@ -40,6 +40,8 @@ let width = 20
 let direction = 1
 let versDroite = true
 let score = 0
+let laserSound = new Audio('ressources/sound/sfx_laser1.m4a')
+var looseSound = new Audio('ressources/sound/sfx_shieldDown.ogg')
 
 tableauJeu[positionTireur].classList.add('tireur')  // Afficher le tirreur
 
@@ -202,6 +204,7 @@ start()
 
 function game() {
     deplacementAliens()
+    
     // for (let i = 0; i < tableauAlien.length; i++) {
 
         // if(tableauAlien[i] == positionTireur){
@@ -213,29 +216,31 @@ function game() {
             document.querySelector('h3').style.color = 'white'
             document.querySelector('h3').style.position = 'relative'
             document.querySelector('h3').style.top = '325px'             // Affichier la defaite et le score au centre de l'écrant
-            document.querySelector('h3').style.fontSize = '30px'
+            document.querySelector('h3').style.fontSize = '25px'
             document.querySelector('h3').innerHTML = 'Vous avez perdu </br></br> Votre Score : ' + score
 
             ajouterButton()
             // alert('vous avez perdu')
-            tableauJeu[positionTireur].classList.remove('tireur')
             supprimerAliens()
+            tableauJeu[positionTireur].classList.remove('tireur')
+            
+            looseSound.play()
         }
         
          if(alienMort.length === tableauAlien.length){  //  Si la taille du tableau alienMort est égale à la taille du tableau tableauAlien on arrête le jeu
             console.log('fini')
             clearInterval(IntervalDeplacementAlien)
 
-            document.querySelector('h3').style.color = 'white'
             document.querySelector('h3').style.position = 'relative'
             document.querySelector('h3').style.top = '325px'            //  Afficher la victoire et le score au centre de l'écrant 
-            document.querySelector('h3').style.fontSize = '30px'
+            document.querySelector('h3').style.fontSize = '25px'
             document.querySelector('h3').innerHTML = 'Vous avez gagné ! </br></br> Votre Score : ' + score
 
             ajouterButton()
             // alert('YOU WIN')
             tableauJeu[positionTireur].classList.remove('tireur')
             supprimerAliens()
+            looseSound.play()
         }
         // }
         else {
@@ -246,13 +251,14 @@ function game() {
                     document.querySelector('h3').style.color = 'white'
                     document.querySelector('h3').style.position = 'relative'
                     document.querySelector('h3').style.top = '325px'
-                    document.querySelector('h3').style.fontSize = '30px'
+                    document.querySelector('h3').style.fontSize = '25px'
                     document.querySelector('h3').innerHTML = 'Vous avez perdu </br> Hors Zone </br></br> Votre Score : ' + score
 
                     ajouterButton()
                     // alert('vous avez perdu hors zone')                    
                     tableauJeu[positionTireur].classList.remove('tireur')
                     supprimerAliens()
+                    looseSound.play()
                 }  
             }
         }
@@ -291,7 +297,7 @@ document.addEventListener('keydown', function lesMissilles(e){
     
     console.log('1 : peuxTirer ' + peuxTirer)
 
-    if(peuxTirer){
+    if(peuxTirer && document.querySelector('.button').style.display == 'none'){
         
         console.log('2 : peuxTirer ' + peuxTirer)
 
@@ -336,8 +342,10 @@ document.addEventListener('keydown', function lesMissilles(e){
             // }
         }
 
+        
         // Si appuie Bar Espace
         if (e.key === ' ') { 
+            laserSound.play()
             intervalLaser = setInterval(missilles,50)
             setTimeout( function(){    peuxTirer = true ; console.log('PARÉ À TIRÉÉÉÉÉÉ') ; console.log(' 3 : peuxTirer ' + peuxTirer)},1000)
             //  Après 1 seconde mettre peuxTirer = true pour pouvroit retirer
