@@ -1,7 +1,6 @@
 /** @format */
 
 body {
-  background-color: grey;
 }
 
 .grille {
@@ -51,6 +50,6 @@ h3 {
   background-color: orange;
 }
 
-.button{
+.button {
   margin-top: 20px;
 }
