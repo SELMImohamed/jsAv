@@ -8,6 +8,8 @@ let min = 0;
 let sec = 0;
 let stoptime = true;
 
+let flipCardSound = new Audio('ressources/sound/dingSound.m4a')
+
 let tab = []
 
 
@@ -40,12 +42,14 @@ function carteReturn(card){
     if (!carteDejaRetourné){
         carteDejaRetourné = true;
         premièreCarte = card.parentNode.parentNode
+        
 
     }
     else {
         secondeCarte = card.parentNode.parentNode
         checkCard(premièreCarte,secondeCarte)
         carteDejaRetourné = false
+        
     }
     
     win()
@@ -57,6 +61,8 @@ function checkCard(premièreCarte , secondeCarte){
 
     //  Si le nom de la première carte est égale au nom de la deuxièmme 
     if (premièreCarte.getAttribute("data-attr") === secondeCarte.getAttribute("data-attr")){
+        flipCardSound.volume = 0.1
+        flipCardSound.play()
         tab.push(premièreCarte.getAttribute("data-attr"))
         tab.push(secondeCarte.getAttribute("data-attr"))
     }
