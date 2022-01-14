@@ -268,7 +268,7 @@ function game() {
 }
 
 // Si on clique sur le bouton on recommence une partie
-document.querySelector('.button').addEventListener('click', function() {
+document.querySelector('.start-btn').addEventListener('click', function() {
     document.location.reload();
 })
 
