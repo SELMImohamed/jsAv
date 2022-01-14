@@ -1,7 +1,9 @@
 /** @format */
 
 body {
-  background-color: grey;
+  background: url(ressources/space.gif);
+  background-repeat: no-repeat;
+  background-size:  100% 1080px;
 }
 
 .grille {
@@ -45,10 +47,15 @@ h3 {
   background-size: contain;
 }
 .boom {
-  background-color: red;
+  /* background-color: red; */
+  background: url(ressources/laserBlue08.png);
+  width: 25px;
+  height: 25px;
 }
 .laser {
-  background-color: orange;
+  /* background-color: orange; */
+  background: url(ressources/laserRed14.png);
+  background-repeat: no-repeat;
 }
 
 .button{
